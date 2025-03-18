@@ -10,22 +10,6 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: 'hsl(var(--card))',
-  			'card-foreground': 'hsl(var(--card-foreground))',
-  			popover: 'hsl(var(--popover))',
-  			'popover-foreground': 'hsl(var(--popover-foreground))',
-  			primary: 'hsl(var(--primary))',
-  			'primary-foreground': 'hsl(var(--primary-foreground))',
-  			secondary: 'hsl(var(--secondary))',
-  			'secondary-foreground': 'hsl(var(--secondary-foreground))',
-  			muted: 'hsl(var(--muted))',
-  			'muted-foreground': 'hsl(var(--muted-foreground))',
-  			accent: 'hsl(var(--accent))',
-  			'accent-foreground': 'hsl(var(--accent-foreground))',
-  			destructive: 'hsl(var(--destructive))',
-  			'destructive-foreground': 'hsl(var(--destructive-foreground))',
   			primary: {
   				'50': '#f0f9ff',
   				'100': '#e0f2fe',
@@ -54,8 +38,13 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
-  			background: '#1C1F21',
-  			foreground: '#E5E7EB',
+  			background: {
+  				DEFAULT: '#1C1F21',
+  				foreground: '#E5E7EB'
+  			},
+  			foreground: {
+  				DEFAULT: '#E5E7EB'
+  			},
   			card: {
   				DEFAULT: '#242729',
   				foreground: '#E5E7EB'
