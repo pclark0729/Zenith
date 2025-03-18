@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { Loader2 } from 'lucide-react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -19,15 +19,15 @@ import { Input } from '@/components/ui/input';
 
 const formSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  firstName: z.string().min(2, 'First name must be at least 2 characters').optional(),
+  firstName: z.string().optional(),
 });
 
-type FormData = z.infer<typeof formSchema>;
+type FormValues = z.infer<typeof formSchema>;
 
-export default function SubscribeForm() {
-  const [isLoading, setIsLoading] = useState(false);
+export function SubscribeForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const form = useForm<FormData>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
@@ -35,29 +35,30 @@ export default function SubscribeForm() {
     },
   });
 
-  async function onSubmit(data: FormData) {
-    setIsLoading(true);
+  async function onSubmit(data: FormValues) {
     try {
+      setIsSubmitting(true);
       const response = await fetch('/api/subscribe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(data),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error('Subscription failed');
+        throw new Error(result.error || 'Failed to subscribe');
       }
 
-      toast.success('Welcome to Zenith! 🌟', {
-        description: 'Check your inbox for our welcome email.',
-      });
+      toast.success('Successfully subscribed! Check your email for confirmation.');
       form.reset();
     } catch (error) {
-      toast.error('Something went wrong', {
-        description: 'Please try again later.',
-      });
+      console.error('Subscription error:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to subscribe. Please try again.');
     } finally {
-      setIsLoading(false);
+      setIsSubmitting(false);
     }
   }
 
@@ -128,20 +129,13 @@ export default function SubscribeForm() {
                     terms of service
                   </a>
                 </label>
-                <button 
+                <Button 
                   type="submit" 
-                  disabled={isLoading}
-                  className="corner-hover w-full px-8 py-4 text-accent hover:text-accent/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-accent hover:bg-accent-hover text-background font-medium"
+                  disabled={isSubmitting}
                 >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="inline-block mr-2 h-4 w-4 animate-spin" />
-                      SUBSCRIBING...
-                    </>
-                  ) : (
-                    'SUBSCRIBE NOW'
-                  )}
-                </button>
+                  {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                </Button>
               </form>
             </Form>
           </div>

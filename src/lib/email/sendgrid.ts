@@ -2,54 +2,66 @@ import sgMail from '@sendgrid/mail';
 import type { Subscriber } from '@/types/database';
 
 if (!process.env.SENDGRID_API_KEY) {
-  throw new Error('Missing environment variable: SENDGRID_API_KEY');
+  throw new Error('Missing SENDGRID_API_KEY environment variable');
 }
 
 if (!process.env.EMAIL_FROM) {
-  throw new Error('Missing environment variable: EMAIL_FROM');
+  throw new Error('Missing EMAIL_FROM environment variable');
 }
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export async function sendWelcomeEmail(subscriber: Pick<Subscriber, 'email' | 'first_name'>): Promise<boolean> {
-  try {
-    const msg = {
-      to: subscriber.email,
-      from: process.env.EMAIL_FROM!,
-      subject: 'Welcome to Zenith Newsletter! 🌟',
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h1 style="color: #0ea5e9;">Welcome to Zenith${subscriber.first_name ? `, ${subscriber.first_name}` : ''}!</h1>
-          
-          <p>Thank you for subscribing to our weekly newsletter on mindfulness, growth mindset, and productivity habits.</p>
-          
-          <p>What to expect:</p>
-          <ul>
-            <li>Weekly insights on personal growth</li>
-            <li>Practical mindfulness techniques</li>
-            <li>Productivity tips and strategies</li>
-            <li>Exclusive resources and tools</li>
-          </ul>
-          
-          <p>Your first newsletter will arrive next week. In the meantime, you can follow us on social media for daily inspiration:</p>
-          
-          <div style="margin: 20px 0;">
-            <a href="https://twitter.com/zenith" style="color: #0ea5e9; text-decoration: none; margin-right: 15px;">Twitter</a>
-            <a href="https://instagram.com/zenith" style="color: #0ea5e9; text-decoration: none;">Instagram</a>
-          </div>
-          
-          <p style="color: #666; font-size: 12px; margin-top: 30px;">
-            If you didn't sign up for this newsletter, you can safely ignore this email.
-          </p>
-        </div>
-      `,
-    };
+interface WelcomeEmailData {
+  email: string;
+  first_name?: string;
+}
 
+export async function sendWelcomeEmail({ email, first_name }: WelcomeEmailData) {
+  const msg = {
+    to: email,
+    from: process.env.EMAIL_FROM!,
+    subject: 'Welcome to Zenith! 🌟',
+    html: `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+        <h1 style="color: #DEB887; margin-bottom: 20px;">Welcome to Zenith, ${first_name || 'there'}! 🌟</h1>
+        
+        <p style="color: #333; line-height: 1.6;">
+          Thank you for joining our community of mindful individuals committed to personal growth and productivity.
+        </p>
+        
+        <p style="color: #333; line-height: 1.6;">
+          Starting next week, you'll receive our weekly newsletter packed with:
+        </p>
+        
+        <ul style="color: #333; line-height: 1.6;">
+          <li>Mindfulness practices and meditation tips</li>
+          <li>Growth mindset strategies</li>
+          <li>Productivity hacks and time management techniques</li>
+          <li>Personal development insights</li>
+        </ul>
+        
+        <p style="color: #333; line-height: 1.6;">
+          In the meantime, feel free to follow us on social media for daily inspiration:
+        </p>
+        
+        <div style="margin: 30px 0;">
+          <a href="https://twitter.com/zenithnews" style="color: #DEB887; text-decoration: none; margin-right: 15px;">Twitter</a>
+          <a href="https://linkedin.com/company/zenithnews" style="color: #DEB887; text-decoration: none;">LinkedIn</a>
+        </div>
+        
+        <p style="color: #666; font-size: 14px;">
+          If you didn't subscribe to our newsletter, you can safely ignore this email.
+        </p>
+      </div>
+    `,
+  };
+
+  try {
     await sgMail.send(msg);
-    return true;
+    return { success: true };
   } catch (error) {
     console.error('Error sending welcome email:', error);
-    return false;
+    return { success: false, error };
   }
 }
 
