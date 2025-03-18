@@ -1,33 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { defaultMetadata } from "./metadata";
 import "./globals.css";
 import { Toaster } from "sonner";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
-import TestEmail from "@/components/common/TestEmail";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Zenith Newsletter",
-  description: "Weekly insights for your personal development journey",
-};
+export const metadata: Metadata = defaultMetadata;
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body className="min-h-screen bg-background text-foreground antialiased">
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow">
             {children}
           </main>
           <Footer />
-          <TestEmail />
         </div>
         <Toaster position="top-center" richColors />
       </body>
