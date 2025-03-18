@@ -48,8 +48,6 @@ export default function InteractiveBackground() {
       orbsRef.current.forEach((orb, index) => {
         const dx = mouseRef.current.x - orb.x;
         const dy = mouseRef.current.y - orb.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
         orb.x += dx * orb.speed;
         orb.y += dy * orb.speed;
 

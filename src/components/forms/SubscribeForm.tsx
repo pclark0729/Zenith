@@ -118,6 +118,16 @@ export default function SubscribeForm() {
                     </FormItem>
                   )}
                 />
+                <label htmlFor="terms" className="text-sm text-foreground/60">
+                  I agree to receive weekly emails and accept the{' '}
+                  <a href="/privacy" className="text-accent hover:text-accent/80 transition-colors">
+                    privacy policy
+                  </a>
+                  {' '}and{' '}
+                  <a href="/terms" className="text-accent hover:text-accent/80 transition-colors">
+                    terms of service
+                  </a>
+                </label>
                 <button 
                   type="submit" 
                   disabled={isLoading}

@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
                   If you have any questions about this Privacy Policy, please contact us at:
                 </p>
                 <p className="mt-2">
-                  Email: privacy@zenith-newsletter.com
+                  Email: privacy@zenith.com
                 </p>
               </section>
 

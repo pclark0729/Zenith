@@ -20,7 +20,7 @@ export default function TermsOfService() {
               <section>
                 <h2 className="text-2xl font-semibold mb-4 text-accent">1. Acceptance of Terms</h2>
                 <p>
-                  By accessing and using Zenith's newsletter service, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not subscribe to our newsletter.
+                  By accessing and using Zenith&apos;s newsletter service, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, please do not subscribe to our newsletter.
                 </p>
               </section>
 
