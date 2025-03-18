@@ -1,103 +1,192 @@
-import Image from "next/image";
+'use client';
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import InteractiveBackground from "@/components/common/InteractiveBackground";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const heroRef = useScrollAnimation();
+  const benefitsRef = useScrollAnimation();
+  const formRef = useScrollAnimation();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="relative">
+      <InteractiveBackground />
+      
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center">
+        <div className="container mx-auto px-4 py-24 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="mb-6 space-y-4">
+              <h1 className="text-6xl md:text-7xl font-bold tracking-tighter text-gradient">
+                <span className="block">MINDFUL</span>
+                <span className="block">GROWTH</span>
+              </h1>
+            </div>
+            <div className="overflow-hidden">
+              <p className="text-xl md:text-2xl text-foreground/80 mb-12 animate-slide-up [animation-delay:300ms]">
+                Weekly insights for your personal development journey
+              </p>
+            </div>
+            <div className="flex justify-center gap-4 animate-fade-in [animation-delay:600ms]">
+              <a
+                href="#subscribe"
+                className="corner-hover px-8 py-4 text-accent hover:text-accent/80 transition-colors"
+              >
+                JOIN NOW
+              </a>
+              <a
+                href="#learn-more"
+                className="corner-hover px-4 py-4 text-foreground/80 hover:text-accent transition-colors"
+              >
+                LEARN MORE
+              </a>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Benefits Section */}
+      <section id="learn-more" ref={benefitsRef} className="py-24 scroll-mt-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gradient">
+              Transform Your Journey
+            </h2>
+            <p className="text-lg text-foreground/80">
+              Join our community of mindful achievers and unlock your full potential.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="benefit-card p-4"
+              >
+                <div className="benefit-icon mb-2 text-xl">{benefit.icon}</div>
+                <h3 className="text-lg font-semibold mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-sm text-foreground/70">{benefit.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Form Section */}
+      <section id="subscribe" ref={formRef} className="py-24 scroll-mt-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-md mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-accent animate-pulse">
+              Join Our Community
+            </h2>
+            <form className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="form-field">
+                  <input
+                    type="text"
+                    placeholder=" "
+                    className="w-full"
+                    required
+                  />
+                  <label>First Name</label>
+                </div>
+                <div className="form-field">
+                  <input
+                    type="text"
+                    placeholder=" "
+                    className="w-full"
+                    required
+                  />
+                  <label>Last Name</label>
+                </div>
+              </div>
+              <div className="form-field">
+                <input
+                  type="email"
+                  placeholder=" "
+                  className="w-full"
+                  required
+                />
+                <label>Email Address</label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <label htmlFor="terms" className="flex items-center space-x-2 cursor-pointer">
+                  <div className="relative">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      className="peer absolute inset-0 w-5 h-5 opacity-0 cursor-pointer"
+                      required
+                    />
+                    <div className="w-5 h-5 border-2 border-accent/30 rounded-sm peer-checked:border-accent peer-checked:bg-accent/10 transition-all duration-200 ease-in-out peer-focus:ring-2 peer-focus:ring-accent/20">
+                      <svg
+                        className="w-5 h-5 text-accent opacity-0 peer-checked:opacity-100 transition-opacity duration-200"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="text-sm text-foreground/60">
+                    I agree to receive weekly emails and accept the{' '}
+                    <a href="/privacy" className="text-accent hover:text-accent/80 transition-colors">
+                      privacy policy
+                    </a>
+                    {' '}and{' '}
+                    <a href="/terms" className="text-accent hover:text-accent/80 transition-colors">
+                      terms of service
+                    </a>
+                  </span>
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="corner-hover w-full py-4 text-lg text-accent hover:text-accent/80 transition-colors"
+              >
+                SUBSCRIBE
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+
+const benefits = [
+  {
+    icon: "🧘",
+    title: "Mindfulness Practices",
+    description:
+      "Learn practical techniques to stay present, reduce stress, and enhance your mental clarity.",
+  },
+  {
+    icon: "🎯",
+    title: "Growth Mindset",
+    description:
+      "Develop resilience and embrace challenges with proven strategies for personal growth.",
+  },
+  {
+    icon: "⚡",
+    title: "Peak Productivity",
+    description:
+      "Master time management and focus techniques to achieve more while maintaining balance.",
+  },
+  {
+    icon: "🌟",
+    title: "Weekly Inspiration",
+    description:
+      "Get curated insights and actionable tips to keep you motivated on your journey.",
+  },
+];
